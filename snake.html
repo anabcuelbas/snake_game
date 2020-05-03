@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Jogo da Cobrinha</title>
+    </head>
+    <body>
+
+        <div> 
+            <h1>Score: </h1>
+            <div id="contador"></div>
+        </div>
+
+        <canvas id="stage" width="400" height="400"></canvas>
+        <script type="text/javascript">
+        
+            window.onload = function() {
+
+                var stage = document.getElementById('stage');
+                var ctx = stage.getContext("2d");
+
+                document.addEventListener("keydown", keyPush);
+                setInterval(game, 60);
+
+                const vel = 1;
+
+                var velocidadeX = velocidadeY = 0;
+                var pontoX = 10;
+                var pontoY = 15;
+                var tamanhoPeca = 20;
+                var quantidadePecas = 20;
+                var appleX = appleY = 15;
+                var obstacleX = obstacleY = 5;
+
+                var count = new Number();
+                var count = 0;
+
+                var trail = [];
+                tail = 5;
+
+                function game(){
+
+                    contador.innerHTML = count;
+                    pontoX += velocidadeX;
+                    pontoY += velocidadeY;
+                    //if(pontoX < 0) pontoX = quantidadePecas - 1;
+                    //if(pontoX > quantidadePecas - 1) pontoX = 0;
+                    //if(pontoY < 0) pontoY = quantidadePecas - 1;
+                    //if(pontoY > quantidadePecas - 1) pontoY = 0;
+                    
+                    if(pontoX < 0 || pontoX > quantidadePecas - 1 || pontoY < 0 || pontoY > quantidadePecas - 1){
+                        velocidadeX = velocidadeY = 0;
+                        tail = 5;
+                        count = 0;
+                        pontoX = 10;
+                        pontoY = 15;
+
+                    }
+                    
+                    ctx.fillStyle = "black";
+                    ctx.fillRect(0,0, stage.width, stage.height);
+
+                    ctx.fillStyle = "red";
+                    ctx.fillRect(appleX * tamanhoPeca, appleY * tamanhoPeca, tamanhoPeca, tamanhoPeca);
+
+                    ctx.fillStyle = "gray";
+                    ctx.fillRect(obstacleX * tamanhoPeca, obstacleY * tamanhoPeca, tamanhoPeca, tamanhoPeca);
+
+                    ctx.fillStyle = "green";
+                    for(var i = 0; i < trail.length; i++){
+                        if(i % 2 == 0) ctx.fillRect(trail[i].x * tamanhoPeca, trail[i].y * tamanhoPeca, tamanhoPeca-1, tamanhoPeca-1);
+                        if(i % 2 != 0) ctx.fillRect(trail[i].x * tamanhoPeca, trail[i].y * tamanhoPeca, tamanhoPeca-2, tamanhoPeca-2);
+
+                        if(trail[i].x == pontoX && trail[i].y == pontoY){
+                            velocidadeX = velocidadeY = 0;
+                            tail = 5;
+                            count = 0;
+                        }
+                    }
+
+                    trail.push({x:pontoX, y:pontoY})
+                    while(trail.length > tail){
+                        trail.shift();
+                    }
+
+                    if(appleX == pontoX && appleY == pontoY){
+                        tail++;
+                        count++;
+                        appleX = Math.floor(Math.random() * quantidadePecas);
+                        appleY = Math.floor(Math.random() * quantidadePecas);
+                    }
+
+                    if(obstacleX == pontoX && obstacleY == pontoY){
+                        tail--;
+                        count--;
+                        obstacleX = Math.floor(Math.random() * quantidadePecas);
+                        obstacleY = Math.floor(Math.random() * quantidadePecas);
+                    }    
+                }
+
+                function keyPush(event){
+
+                    switch (event.keyCode) {
+                        case 37: //Left
+                            velocidadeX = -vel;
+                            velocidadeY = 0;
+                            break;
+                        case 38: //Up
+                            velocidadeX = 0;
+                            velocidadeY = -vel;
+                            break;
+                        case 39: //Right
+                            velocidadeX = vel;
+                            velocidadeY = 0;
+                            break;
+                        case 40: //Down
+                            velocidadeX = 0;
+                            velocidadeY = vel;
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+            }
+        </script>
+        <p>Quadrado Cinza: Obstáculo - Perde 1 ponto</p>
+        <p>Quadrado Vermelho: Maça - Ganha 1 ponto</p>
+    </body>
+</html>
