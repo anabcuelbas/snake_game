@@ -101,19 +101,23 @@
                 function keyPush(event){
 
                     switch (event.keyCode) {
-                        case 37 || 65: //Left
+                        case 37:
+                        case 65: //Left
                             velocidadeX = -vel;
                             velocidadeY = 0;
                             break;
-                        case 38 || 87: //Up
+                        case 38:
+                        case 87: //Up
                             velocidadeX = 0;
                             velocidadeY = -vel;
                             break;
-                        case 39 || 68: //Right
+                        case 39:
+                        case 68: //Right
                             velocidadeX = vel;
                             velocidadeY = 0;
                             break;
-                        case 40 || 83: //Down
+                        case 40: 
+                        case 83: //Down
                             velocidadeX = 0;
                             velocidadeY = vel;
                             break;
