@@ -9,13 +9,14 @@
         <div> 
             <h1>Score: </h1>
             <div id="contador"></div>
+            <button id="teste">teste</button>
         </div>
 
         <canvas id="stage" width="400" height="400"></canvas>
         <script type="text/javascript">
         
             window.onload = function() {
-
+                document.querySelector('#teste').addEventListener('click', document.bgColor = '#454532');
                 var stage = document.getElementById('stage');
                 var ctx = stage.getContext("2d");
 
