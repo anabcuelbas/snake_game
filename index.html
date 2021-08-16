@@ -16,7 +16,7 @@
         <script type="text/javascript">
         
             window.onload = function() {
-                document.querySelector('#teste').addEventListener('click', document.bgColor = '#454532');
+                document.querySelector('#teste').addEventListener('click', () => { document.bgColor = '#454532' });
                 var stage = document.getElementById('stage');
                 var ctx = stage.getContext("2d");
 
