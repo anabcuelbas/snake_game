@@ -17,7 +17,7 @@ cc.run({
     // autorun: true,                           // default: true
     // delay: 0,                                // default: 0
     // force_consent: false,
-    // hide_from_bots: false,                   // default: false
+    hide_from_bots: true,                   // default: false
     // remove_cookie_tables: false              // default: false
     // cookie_domain: location.hostname,        // default: current domain
     // cookie_path: "/",                        // default: root
